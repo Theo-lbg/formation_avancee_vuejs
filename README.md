@@ -1,6 +1,17 @@
-# formation_avancee_vuejs
+# Formation Avancee Vue.js
 
-This template should help get you started developing with Vue 3 in Vite.
+Base de projet Vue 3 pour une journee pratique: reproduire la forme generale de X (anciennement Twitter) et travailler les fondamentaux Vue utilises en mission.
+
+Fonctionnalites:
+- SPA avec Vue Router
+- Layout global (navigation + feed)
+- Store Pinia pour le feed et les interactions
+- Composants generiques reutilisables
+- Slots, ref, computed, v-for, v-if, v-model
+- Vuetify pour accelerer l'UI
+
+Objectif pedagogique:
+Construire une app simple mais realiste pour comprendre le decoupage d'une app Vue, la reactivite et la composition de composants.
 
 ## Recommended IDE Setup
 
@@ -41,22 +52,6 @@ npm run dev
 npm run build
 ```
 
-### Mise en production sur GitHub Pages
-
-Ce projet est configuré pour être déployé automatiquement sur GitHub Pages via GitHub Actions.
-
-Points importants:
-- le fichier `vite.config.ts` définit le `base` du projet pour GitHub Pages
-- le workflow `.github/workflows/deploy.yml` se déclenche sur chaque push sur `main`
-- le build est publié depuis le dossier `dist`
-
-Pour activer le déploiement:
-1. pousser le projet sur le dépôt GitHub
-2. aller dans `Settings > Pages`
-3. choisir la source `GitHub Actions`
-
-Une fois le workflow terminé, l’application sera accessible sur l’URL GitHub Pages du dépôt.
-
 ### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
 ```sh
@@ -71,10 +66,27 @@ npm run test:e2e
 # Runs the tests only on Chromium
 npm run test:e2e -- --project=chromium
 # Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
+npm run test:e2e -- e2e/vue.spec.ts
 # Runs the tests in debug mode
 npm run test:e2e -- --debug
 ```
+
+### Mise en production sur GitHub Pages
+
+Le projet est deploye automatiquement sur GitHub Pages via GitHub Actions.
+
+Points importants:
+- `vite.config.ts` definit le `base` pour GitHub Pages
+- `.github/workflows/deploy.yml` se declenche sur chaque push sur `main`
+- le build est publie depuis `dist`
+- un fichier `.nojekyll` est genere pour servir correctement les assets Vite
+
+Pour activer le deploiement:
+1. pousser le projet sur le depot GitHub
+2. aller dans `Settings > Pages`
+3. choisir la source `GitHub Actions`
+
+Une fois le workflow termine, l'application est accessible sur l'URL GitHub Pages du depot.
 
 ### Lint with [ESLint](https://eslint.org/)
 

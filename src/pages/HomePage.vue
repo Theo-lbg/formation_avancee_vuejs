@@ -44,7 +44,7 @@ onMounted(() => {
       v-model="query"
       class="home-page__search"
       label="Search posts"
-      variant="solo-filled"
+      variant="plain"
       prepend-inner-icon=""
       hide-details
       clearable
@@ -80,11 +80,11 @@ onMounted(() => {
 <style scoped>
 .home-page {
   display: grid;
-  gap: 0.75rem;
+  gap: 0;
 }
 
 .home-page__search {
-  background: #ffffff;
+  margin: 0.25rem 0 0.1rem;
 }
 
 .home-page__loading {

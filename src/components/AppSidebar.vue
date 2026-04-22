@@ -17,14 +17,14 @@ const navigationItems = [
 
 <template>
   <aside class="app-sidebar">
-    <v-card class="app-sidebar__card" rounded="0" elevation="0">
+    <div class="app-sidebar__card">
       <div class="app-sidebar__brand">
         <v-avatar color="primary" size="36">
           <span class="text-white font-weight-bold">X</span>
         </v-avatar>
         <div>
-          <p class="text-caption text-medium-emphasis mb-0">Vue workshop</p>
-          <h1 class="text-subtitle-1 mb-0">Social Lab</h1>
+          <p class="text-caption text-medium-emphasis mb-0">X-PEHO Formation</p>
+          <h1 class="text-subtitle-1 mb-0">Formation Vue.js</h1>
         </div>
       </div>
 
@@ -40,25 +40,21 @@ const navigationItems = [
           <v-list-item-title>{{ item.label }}</v-list-item-title>
         </v-list-item>
       </v-list>
-
-      <v-btn color="primary" size="large" rounded="lg" block class="mt-4">
-        Post
-      </v-btn>
-    </v-card>
+    </div>
   </aside>
 </template>
-
+  
 <style scoped>
 .app-sidebar {
   position: sticky;
-  top: 0.75rem;
+  top: 0;
   align-self: start;
 }
 
 .app-sidebar__card {
-  padding: 0.9rem;
-  background: #ffffff;
-  border: 1px solid #dbe2ea;
+  padding: 1.25rem 1rem 1rem;
+  background: transparent;
+  border: 0;
   box-shadow: none;
 }
 
@@ -74,6 +70,6 @@ const navigationItems = [
 }
 
 .app-sidebar__item {
-  margin-bottom: 0.15rem;
+  margin-bottom: 0;
 }
 </style>

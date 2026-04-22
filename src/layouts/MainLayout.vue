@@ -20,38 +20,39 @@ import AppSidebar from '../components/AppSidebar.vue'
 
 <style scoped>
 .main-layout {
-  background: #f5f7fb;
+  background: #ffffff;
 }
 
 .main-layout__shell {
-  width: min(1180px, calc(100vw - 1rem));
+  width: min(1280px, 100vw);
   margin: 0 auto;
-  padding: 0.75rem 0;
+  padding: 0;
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
-  gap: 0.75rem;
+  gap: 0;
   align-items: start;
 }
 
 .main-layout__content {
   min-width: 0;
+  padding: 0;
 }
 
 .main-layout__content-inner {
   display: grid;
-  gap: 0.75rem;
+  gap: 0;
 }
 
 @media (max-width: 1200px) {
   .main-layout__shell {
-    width: min(100vw - 1rem, 1180px);
+    width: 100vw;
   }
 }
 
 @media (max-width: 860px) {
   .main-layout__shell {
     grid-template-columns: 1fr;
-    width: min(100vw - 1rem, 900px);
+    width: 100vw;
   }
 
   .main-layout__shell :deep(.app-sidebar) {

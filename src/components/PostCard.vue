@@ -12,7 +12,7 @@ defineEmits<{
 </script>
 
 <template>
-  <v-card class="post-card" rounded="0" elevation="0">
+  <article class="post-card">
     <div class="post-card__header">
       <v-avatar size="48">
         <v-img :src="post.avatar" :alt="post.authorName" cover />
@@ -54,14 +54,14 @@ defineEmits<{
         {{ post.isBookmarked ? 'Saved' : 'Save' }}
       </v-btn>
     </div>
-  </v-card>
+  </article>
 </template>
 
 <style scoped>
 .post-card {
-  padding: 1rem;
-  background: #ffffff;
-  border: 1px solid #dbe2ea;
+  padding: 1rem 0;
+  background: transparent;
+  border: 0;
   box-shadow: none;
 }
 
@@ -101,5 +101,6 @@ defineEmits<{
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  padding-bottom: 0.25rem;
 }
 </style>

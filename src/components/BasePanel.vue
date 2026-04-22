@@ -12,7 +12,7 @@ withDefaults(
 </script>
 
 <template>
-  <v-card class="base-panel" rounded="0" elevation="0">
+  <section class="base-panel">
     <div class="base-panel__header">
       <div>
         <p v-if="subtitle" class="text-overline mb-1 text-medium-emphasis">
@@ -30,13 +30,13 @@ withDefaults(
     <div class="base-panel__body">
       <slot />
     </div>
-  </v-card>
+  </section>
 </template>
 
 <style scoped>
 .base-panel {
-  background: #ffffff;
-  border: 1px solid #dbe2ea;
+  background: transparent;
+  border: 0;
   box-shadow: none;
 }
 
@@ -45,11 +45,11 @@ withDefaults(
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.9rem 1rem 0.65rem;
+  padding: 0.75rem 0 0.5rem;
 }
 
 .base-panel__body {
-  padding: 0 1rem 1rem;
+  padding: 0 0 0.5rem;
 }
 
 .base-panel__actions {

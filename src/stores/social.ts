@@ -1,8 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import { demoCurrentUser, demoPosts, demoSuggestions, demoTrends } from '../data/social'
-import type { SocialPost, SocialUser } from '../types/social'
+import type { SocialPost, SocialUser, Suggestion, Trend } from '../types/social'
 
 interface JsonPlaceholderPost {
   id: number
@@ -15,6 +14,14 @@ interface JsonPlaceholderUser {
   id: number
   name: string
   username: string
+  email: string
+  address: {
+    city: string
+  }
+  company: {
+    name: string
+    catchPhrase: string
+  }
 }
 
 function buildAvatar(seed: number) {
@@ -25,11 +32,40 @@ function capitalize(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
+function toHandle(username: string) {
+  return `@${username.toLowerCase()}`
+}
+
+function createTrendFromUser(user: JsonPlaceholderUser): Trend {
+  return {
+    label: `#${user.address.city.replace(/\s+/g, '')}`,
+    audience: `Trending near ${user.address.city}`,
+    details: user.company.name,
+  }
+}
+
+function createSuggestionFromUser(user: JsonPlaceholderUser): Suggestion {
+  return {
+    id: user.id,
+    name: user.name,
+    handle: toHandle(user.username),
+    avatar: buildAvatar(user.id + 10),
+    title: user.company.catchPhrase,
+  }
+}
+
 export const useSocialStore = defineStore('social', () => {
-  const currentUser = ref<SocialUser>(demoCurrentUser)
-  const posts = ref<SocialPost[]>([...demoPosts])
-  const trends = ref([...demoTrends])
-  const suggestions = ref([...demoSuggestions])
+  const currentUser = ref<SocialUser>({
+    id: 0,
+    name: 'Loading user',
+    handle: '@loading',
+    avatar: buildAvatar(1),
+    bio: 'Fetching profile from JSONPlaceholder...',
+    verified: false,
+  })
+  const posts = ref<SocialPost[]>([])
+  const trends = ref<Trend[]>([])
+  const suggestions = ref<Suggestion[]>([])
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const hasRemoteFeed = ref(false)
@@ -60,11 +96,32 @@ export const useSocialStore = defineStore('social', () => {
       const postsPayload = (await postsResponse.json()) as JsonPlaceholderPost[]
       const usersPayload = (await usersResponse.json()) as JsonPlaceholderUser[]
 
+      if (!usersPayload.length) {
+        throw new Error('No users returned by JSONPlaceholder')
+      }
+
       const usersById = new Map(usersPayload.map((user) => [user.id, user]))
+
+      const selectedUser = usersPayload.at(0)
+      if (!selectedUser) {
+        throw new Error('Unable to select a current user from JSONPlaceholder payload')
+      }
+
+      currentUser.value = {
+        id: selectedUser.id,
+        name: selectedUser.name,
+        handle: toHandle(selectedUser.username),
+        avatar: buildAvatar(selectedUser.id),
+        bio: `${selectedUser.company.catchPhrase} · ${selectedUser.email}`,
+        verified: selectedUser.id % 2 === 0,
+      }
+
+      suggestions.value = usersPayload.slice(1, 5).map(createSuggestionFromUser)
+      trends.value = usersPayload.slice(0, 4).map(createTrendFromUser)
 
       posts.value = postsPayload.map((post, index) => {
         const author = usersById.get(post.userId)
-        const handle = author ? `@${author.username.toLowerCase()}` : `@user${post.userId}`
+        const handle = author ? toHandle(author.username) : `@user${post.userId}`
 
         return {
           id: post.id,
@@ -85,9 +142,11 @@ export const useSocialStore = defineStore('social', () => {
 
       hasRemoteFeed.value = true
     } catch (loadError) {
-      error.value = 'Impossible de charger le flux en ligne, le contenu de démonstration est affiché.'
+      error.value = 'Impossible de charger JSONPlaceholder. Verifie ta connexion ou reessaie plus tard.'
       console.error(loadError)
-      posts.value = [...demoPosts]
+      posts.value = []
+      trends.value = []
+      suggestions.value = []
     } finally {
       isLoading.value = false
     }

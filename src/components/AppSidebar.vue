@@ -4,14 +4,14 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const navigationItems = [
-  { label: 'Home', name: 'home' },
-  { label: 'Explore', name: 'explore' },
-  { label: 'Notifications', name: 'notifications' },
-  { label: 'Messages', name: 'messages' },
-  { label: 'Bookmarks', name: 'bookmarks' },
-  { label: 'Lists', name: 'lists' },
-  { label: 'Profile', name: 'profile' },
-  { label: 'More', name: 'more' },
+  { label: 'Home', name: 'home', icon: 'mdi-home-outline' },
+  { label: 'Explore', name: 'explore', icon: 'mdi-magnify' },
+  { label: 'Notifications', name: 'notifications', icon: 'mdi-bell-outline' },
+  { label: 'Messages', name: 'messages', icon: 'mdi-email-outline' },
+  { label: 'Bookmarks', name: 'bookmarks', icon: 'mdi-bookmark-outline' },
+  { label: 'Lists', name: 'lists', icon: 'mdi-format-list-bulleted' },
+  { label: 'Profile', name: 'profile', icon: 'mdi-account-outline' },
+  { label: 'More', name: 'more', icon: 'mdi-dots-horizontal' },
 ]
 </script>
 
@@ -20,7 +20,7 @@ const navigationItems = [
     <div class="app-sidebar__card">
       <div class="app-sidebar__brand">
         <v-avatar color="primary" size="36">
-          <span class="text-white font-weight-bold">X</span>
+          <v-icon icon="mdi-alpha-x" color="white" size="22" />
         </v-avatar>
         <div>
           <p class="text-caption text-medium-emphasis mb-0">X-PEHO Formation</p>
@@ -37,6 +37,9 @@ const navigationItems = [
           :active="route.name === item.name"
           class="app-sidebar__item"
         >
+          <template #prepend>
+            <v-icon :icon="item.icon" />
+          </template>
           <v-list-item-title>{{ item.label }}</v-list-item-title>
         </v-list-item>
       </v-list>

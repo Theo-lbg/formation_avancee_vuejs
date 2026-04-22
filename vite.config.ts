@@ -21,4 +21,5 @@ export default defineConfig({
     }),
     vueDevTools(),
   ],
+  base: '/formation_avancee_vuejs/',
 })

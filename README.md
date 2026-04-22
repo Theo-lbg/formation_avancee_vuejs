@@ -41,6 +41,22 @@ npm run dev
 npm run build
 ```
 
+### Mise en production sur GitHub Pages
+
+Ce projet est configuré pour être déployé automatiquement sur GitHub Pages via GitHub Actions.
+
+Points importants:
+- le fichier `vite.config.ts` définit le `base` du projet pour GitHub Pages
+- le workflow `.github/workflows/deploy.yml` se déclenche sur chaque push sur `main`
+- le build est publié depuis le dossier `dist`
+
+Pour activer le déploiement:
+1. pousser le projet sur le dépôt GitHub
+2. aller dans `Settings > Pages`
+3. choisir la source `GitHub Actions`
+
+Une fois le workflow terminé, l’application sera accessible sur l’URL GitHub Pages du dépôt.
+
 ### Run End-to-End Tests with [Playwright](https://playwright.dev)
 
 ```sh
